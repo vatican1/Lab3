@@ -18,12 +18,13 @@ double rastrigin_second_diffential(double x){
 
 double bisection_method(double (*func)(double), 
 						double left, double right,
-						double minDV, double minDX, int max_steps) {
+						const double minDV, const double minDX, const int max_steps) {
 	double x = (left + right) / 2;
 	double value = func(x);
 	double dv;
 	size_t step = 0;
 	double dx;
+	// std::cout << "minDv = " << minDV << " minDx = " << minDX << " maxStep = " << max_steps << std::endl;
 	do {
 		if (value > 0) right = x;
 		else left = x;
@@ -34,7 +35,8 @@ double bisection_method(double (*func)(double),
 		value = new_value;
 		++step;
 		dx = abs(left - right);
-	} while ((dv > minDV || dx > minDX) && step > max_steps);
+		// std::cout << "dv = " << dv << " dx = " << dx << " step = " << step <<std::endl;
+	} while ((dv > minDV || dx > minDX) && step < max_steps);
 
 	return x;
 }
